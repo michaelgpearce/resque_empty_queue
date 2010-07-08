@@ -4,14 +4,14 @@
 # -*- encoding: utf-8 -*-
 
 Gem::Specification.new do |s|
-  s.name = %q{resque-throttle}
+  s.name = 'resque_empty_queue'
   s.version = "0.2.19"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
-  s.authors = ["Scott J. Tamosunas"]
-  s.date = %q{2010-03-10}
-  s.description = %q{resque-throttle is an extension to the resque queue system that restricts the frequency in which certain jobs are run. Add more description here.}
-  s.email = %q{tamosunas@gmail.com}
+  s.authors = ['Michael G. Pearce', 'J. A. Wheeler']
+  s.date = '2010-07-07'
+  s.description = 'resque_empty_queue is an extension to the Resque queue system runs a job after a queue has been emptied.'
+  s.email = %q{michael.pearce@bookrenter.com, andrew.wheeler@bookrenter.com}
   s.extra_rdoc_files = [
     "LICENSE",
      "README.markdown"
@@ -23,23 +23,23 @@ Gem::Specification.new do |s|
      "README.markdown",
      "Rakefile",
      "VERSION",
-     "lib/resque-throttle.rb",
+     "lib/resque_empty_queue.rb",
      "lib/resque/resque.rb",
-     "lib/resque/throttle.rb",
-     "lib/resque/throttled_job.rb",
-     "resque-throttle.gemspec",
+     "lib/resque/empty_queue.rb",
+     "lib/resque/empty_queue_job.rb",
+     "resque_empty_queue.gemspec",
      "test/resque/resque_test.rb",
-     "test/resque/throttled_job_test.rb",
+     "test/resque/empty_queue_job_test.rb",
      "test/test_helper.rb"
   ]
-  s.homepage = %q{http://github.com/scotttam/resque-throttle}
+  s.homepage = 'http://github.com/michaelgpearce/resque_empty_queue'
   s.rdoc_options = ["--charset=UTF-8"]
   s.require_paths = ["lib"]
   s.rubygems_version = %q{1.3.5}
-  s.summary = %q{resque-throttle is an extension to the resque queue system that restricts the frequency in which certain jobs are run.}
+  s.summary = 'resque_empty_queue is an extension to the Resque queue system runs a job after a queue has been emptied.'
   s.test_files = [
     "test/resque/resque_test.rb",
-     "test/resque/throttled_job_test.rb",
+     "test/resque/empty_queue_job_test.rb",
      "test/test_helper.rb"
   ]
 

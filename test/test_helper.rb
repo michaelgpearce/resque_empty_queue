@@ -6,46 +6,28 @@ require 'mocha'
 $LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
 $LOAD_PATH.unshift(File.dirname(__FILE__))
 require 'resque/resque'
-require 'resque/throttle'
-require 'resque/throttled_job'
+require 'resque/empty_queue'
+require 'resque/empty_queue_job'
 
 class Test::Unit::TestCase
 end
 
 #fixture classes
-class DefaultThrottledJob < Resque::ThrottledJob
-  @queue = :some_queue
-  
+class DefaultEmptyQueueJob < Resque::EmptyQueueJob
+  wait_for_empty_queue :some_queue
+  @queue = :empty_queue
+
   def self.perform(some_id, some_other_thing)
+    puts "default empty queue perform"
   end
 end
 
-class OneHourThrottledJob < Resque::ThrottledJob
+class QueuedJob
   @queue = :some_queue
-  throttle :can_run_every => 3600
 
   def self.perform(some_id, some_other_thing)
+    sleep(2)
+    puts "queued job perform"
   end
 end
 
-class IdentifierThrottledJob < Resque::ThrottledJob
-  @queue = :some_queue
-
-  throttle :can_run_every => 3600
-
-  def self.perform(some_id, some_other_thing)
-  end
-  
-  def self.identifier(*args)
-    first, second = *args
-    "my_#{first}"
-  end
-end
-
-class DisabledThrottledJob < Resque::ThrottledJob
-  @queue = :some_queue
-  throttle :disabled => true
-
-  def self.perform(some_id, some_other_thing)
-  end
-end

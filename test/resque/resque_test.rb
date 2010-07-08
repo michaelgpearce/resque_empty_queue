@@ -4,30 +4,29 @@ class ResqueTest < Test::Unit::TestCase
 
   context "Resque" do
     setup do
-      Resque.redis.flush_all
-      assert_nil Resque.redis.get(OneHourThrottledJob.key)
+      Resque.redis.flushall
       @bogus_args = "bogus_arg"
     end
 
     context "#enqueue" do
-      should "add a throttled job key to the set with the proper TTL (Expire)" do
-        Resque.expects(:enqueue_without_throttle).returns(true) 
-        assert Resque.enqueue(IdentifierThrottledJob, @bogus_args)
-        assert Resque.redis.keys('*').include?("resque:IdentifierThrottledJob:my_bogus_arg")
-        assert_equal 3600, Resque.redis.ttl(IdentifierThrottledJob.key(@bogus_args))
-      end
-      
-      context "job has not reached throttle limit" do
-        should "not add another job to the queue and raise a throttled exception" do
-          Resque.expects(:enqueue_without_throttle).once
-          assert_raises(Resque::ThrottledError) { 2.times { Resque.enqueue(OneHourThrottledJob, @bogus_args) } }
+
+      context "the queue is not empty" do
+        setup do
+          Resque.enqueue(QueuedJob, @bogus_args)
+        end
+
+        should "not add another job to the queue and raise an exception" do
+          assert_raises(Resque::EmptyQueueError) { Resque.enqueue(DefaultEmptyQueueJob, @bogus_args) }
         end
       end
 
-      should "enqueue a job without throttling if the job is disabled" do
-        Resque.expects(:enqueue_without_throttle).twice
-        2.times { Resque.enqueue(DisabledThrottledJob, @bogus_args) }
+      context "the queue is empty" do
+        should "raise an exception on a duplicate indentifier" do
+          Resque.expects(:enqueue_without_empty_queue).once
+          Resque.enqueue(DefaultEmptyQueueJob, @bogus_args)
+        end
       end
+
     end
   end
 end

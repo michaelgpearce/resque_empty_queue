@@ -4,12 +4,12 @@ require 'rake'
 begin
   require 'jeweler'
   Jeweler::Tasks.new do |gem|
-    gem.name = "resque-throttle"
-    gem.summary = %Q{resque-throttle is an extension to the resque queue system that restricts the frequency in which certain jobs are run.}
-    gem.description = %Q{resque-throttle is an extension to the resque queue system that restricts the frequency in which certain jobs are run. Add more description here.}
-    gem.email = "tamosunas@gmail.com"
-    gem.homepage = "http://github.com/scotttam/resque-throttle"
-    gem.authors = ["Scott J. Tamosunas"]
+    gem.name = "resque_empty_queue"
+    gem.summary = 'resque_empty_queue is an extension to the Resque queue system runs a job after a queue has been emptied.'
+    gem.description = 'resque_empty_queue is an extension to the Resque queue system runs a job after a queue has been emptied.'
+    gem.email = "michael.pearce@bookrenter.com"
+    gem.homepage = "http://github.com/michaelgpearce/resque_empty_queue"
+    gem.authors = ["Michael G. Pearce", "J. A. Wheeler"]
     gem.add_dependency "resque", ">=1.6.0"
     gem.add_development_dependency "thoughtbot-shoulda", ">= 0"
     gem.add_development_dependency "mocha", ">=0.9.8"
@@ -49,7 +49,7 @@ Rake::RDocTask.new do |rdoc|
   version = File.exist?('VERSION') ? File.read('VERSION') : ""
 
   rdoc.rdoc_dir = 'rdoc'
-  rdoc.title = "resque-throttle #{version}"
+  rdoc.title = "resque_empty_queue #{version}"
   rdoc.rdoc_files.include('README*')
   rdoc.rdoc_files.include('lib/**/*.rb')
 end
