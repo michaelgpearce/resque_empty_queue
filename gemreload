@@ -1,22 +1,23 @@
 #!/bin/bash
-if (( ("$1" == '-h') || ("$1" == 'help') )) ; then
+if [[ -n "$1" && "$1" == "-h" || "$1" == "--help" ]]; then
   echo -e "Builds and reinstalls the gem from the source in your current directory.\r\nUploads the gem to remote if the version has changed."
   exit 0
 fi
 
 gem_name=`pwd | sed s#.*/##`
-old_version=`gem list resque_empty_queue | sed "s#^.*(\(0\.0\.1\))#\1#"`
+old_version=`gem list resque_empty_queue | sed "s#^.*(\([^)]*\))#\1#"`
 new_version=`cat VERSION` || (echo 'Run this from the root of the gem project (expecting a VERSION file).' >&2; exit 1)
 
 # Build the gem
+echo "*** building gem '$gem_name' version '$new_version' (current version $old_version)"
 rm -f *.gem
 gem build "${gem_name}.gemspec"
 
 gem_file=`ls *.gem`
 
 # push it to RubyGems
-if [ $new_version != $old_version ]; then
-  echo 'Pushing to remote...'
+if [[ "$new_version" != "$old_version" ]]; then
+  echo '*** Pushing to remote...'
   gem push $gem_file
 fi
 
@@ -24,10 +25,10 @@ fi
 gem uninstall $gem_name
 
 # reinstall the gem
-if [ $new_version != $old_version ]; then
-  echo 'Installing from remote...'
+if [[ "$new_version" != "$old_version" ]]; then
+  echo '*** Installing from remote...'
   gem install $gem_name
 else
-  echo 'Installing from local gem file...'
+  echo '*** Installing from local gem file...'
   gem install -l $gem_file
 fi
