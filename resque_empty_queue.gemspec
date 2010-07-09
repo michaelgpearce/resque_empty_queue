@@ -5,7 +5,7 @@
 
 Gem::Specification.new do |s|
   s.name = 'resque_empty_queue'
-  s.version = "0.2.19"
+  s.version = "0.0.1"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ['Michael G. Pearce', 'J. A. Wheeler']
@@ -27,9 +27,9 @@ Gem::Specification.new do |s|
      "lib/resque/resque.rb",
      "lib/resque/empty_queue.rb",
      "lib/resque/empty_queue_job.rb",
+     "lib/resque/empty_queue_retry_job.rb",
      "resque_empty_queue.gemspec",
      "test/resque/resque_test.rb",
-     "test/resque/empty_queue_job_test.rb",
      "test/test_helper.rb"
   ]
   s.homepage = 'http://github.com/michaelgpearce/resque_empty_queue'
@@ -39,7 +39,6 @@ Gem::Specification.new do |s|
   s.summary = 'resque_empty_queue is an extension to the Resque queue system runs a job after a queue has been emptied.'
   s.test_files = [
     "test/resque/resque_test.rb",
-     "test/resque/empty_queue_job_test.rb",
      "test/test_helper.rb"
   ]
 
@@ -49,15 +48,18 @@ Gem::Specification.new do |s|
 
     if Gem::Version.new(Gem::RubyGemsVersion) >= Gem::Version.new('1.2.0') then
       s.add_runtime_dependency(%q<resque>, [">= 1.6.0"])
+      s.add_runtime_dependency(%q<resque-scheduler>, [">= 0"])
       s.add_development_dependency(%q<thoughtbot-shoulda>, [">= 0"])
       s.add_development_dependency(%q<mocha>, [">= 0.9.8"])
     else
       s.add_dependency(%q<resque>, [">= 1.6.0"])
+      s.add_dependency(%q<resque-scheduler>, [">= 0"])
       s.add_dependency(%q<thoughtbot-shoulda>, [">= 0"])
       s.add_dependency(%q<mocha>, [">= 0.9.8"])
     end
   else
     s.add_dependency(%q<resque>, [">= 1.6.0"])
+    s.add_dependency(%q<resque-scheduler>, [">= 0"])
     s.add_dependency(%q<thoughtbot-shoulda>, [">= 0"])
     s.add_dependency(%q<mocha>, [">= 0.9.8"])
   end

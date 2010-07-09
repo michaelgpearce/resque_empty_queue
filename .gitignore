@@ -20,3 +20,4 @@ pkg
 
 ## PROJECT::SPECIFIC
 .idea
+resque_empty_queue-0.0.1.gem
