@@ -5,7 +5,7 @@
 
 Gem::Specification.new do |s|
   s.name = 'resque_empty_queue'
-  s.version = "0.0.2"
+  s.version = "0.0.3"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ['Michael G. Pearce', 'J. A. Wheeler']
@@ -24,10 +24,7 @@ Gem::Specification.new do |s|
      "Rakefile",
      "VERSION",
      "lib/resque_empty_queue.rb",
-     "lib/resque/resque.rb",
-     "lib/resque/empty_queue.rb",
-     "lib/resque/empty_queue_job.rb",
-     "lib/resque/empty_queue_retry_job.rb",
+     "lib/resque/plugins/empty_queue_job.rb",
      "resque_empty_queue.gemspec",
      "test/resque/resque_test.rb",
      "test/test_helper.rb"

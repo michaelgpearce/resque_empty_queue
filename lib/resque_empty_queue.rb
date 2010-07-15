@@ -1,6 +1,5 @@
-require 'resque_scheduler'
+require 'resque'
+# Causes problems when included with Sinatra?? when loading workers rake task
+# require 'resque_scheduler'
 
-require "resque/resque"
-require "resque/empty_queue"
-require "resque/empty_queue_job"
-require "resque/empty_queue_retry_job"
+require "resque/plugins/empty_queue_job"
